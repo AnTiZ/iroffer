@@ -17,13 +17,15 @@ and this project **does not** adhere to Semantic Versioning.
 
 ### Deprecated
 
-- Platform support for *SunOS/Solaris*, *HP-UX*, *IRIX*, *IRIX64*, *Digital UNIX*, *Mac OS X Server*, *AIX* and *Cygwin*.
+- Platform support for *SunOS/Solaris*, *HP-UX*, *IRIX/IRIX64*, *Digital UNIX*, *Mac OS X Server*, *AIX* and *Cygwin*.
 - *convertxdccfile*, since the *statefile* has existed for nearly 14 years now.
 
 ### Fixed
 
 - Use correct "printf format string" length specifier for size_t and ssize_t.
 - Merged Debian patches to fix typos and the *Configure* script.
+
+## [1.4.1] - 2018-01-12 [REMOVED]
 
 ## 1.4.b03 - 2005-12-12
 
@@ -47,7 +49,7 @@ and this project **does not** adhere to Semantic Versioning.
 - Fix username when it cannot be determined automatically.
 - Fix infinite loop when debug output causes memory allocation.
 
-[Unreleased]: https://github.com/AnTiZ/iroffer/compare/v1.4b03...HEAD
+[Unreleased]: https://github.com/antiz/iroffer/compare/v1.4.b03-orig...HEAD
 
 ---
 
