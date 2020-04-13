@@ -1,0 +1,13 @@
+image: openbsd/latest
+sources:
+  - https://github.com/antiz/iroffer
+tasks:
+  - configure: |
+      cd iroffer
+      ./configure
+  - build: |
+      cd iroffer
+      make
+  - print_version: |
+      cd iroffer
+      ./iroffer -v
