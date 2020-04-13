@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=1.4.b03
+VERSION=1.5.0
 RELEASE=1
 
 if [ $RELEASE -eq 1 ]; then
