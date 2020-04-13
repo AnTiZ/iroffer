@@ -80,4 +80,4 @@ then crontab -e and place the following line in the editor
 
 ## Acknowledgments
 
-*iroffer* was originally written by PMG and the projects former home was iroffer.org
+*iroffer* was originally written by PMG (1998-2005) and the projects former home was iroffer.org
