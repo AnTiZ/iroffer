@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
         printf(
             "\n"
             "iroffer v" VERSIONLONG
-            " by PMG, see http://iroffer.org/\n"
+            "\n"
             "\n"
             "Usage: %s [-vc] [-bdkn"
 #if !defined(_OS_CYGWIN)
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
             argv[0]);
         exit(0);
     case PCL_SHOW_VERSION:
-        printf("iroffer v" VERSIONLONG " by PMG, see http://iroffer.org/\n");
+        printf("iroffer v" VERSIONLONG "\n");
         exit(0);
     case PCL_GEN_PASSWORD:
         createpassword();
