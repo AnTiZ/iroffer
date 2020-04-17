@@ -4,7 +4,7 @@ sources:
 tasks:
   - configure: |
       cd iroffer
-      ./configure
+      ./configure -e
   - build: |
       cd iroffer
       make
