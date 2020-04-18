@@ -342,9 +342,9 @@ static void mainloop(void) {
         if (errno != EINTR) {
             outerror(OUTERROR_TYPE_WARN, "Select returned an error: %s",
                      strerror(errno));
-            
+
             struct timespec delay = {0, 10000000}; // 10 milliseconds
-            nanosleep(&delay, &delay); // prevent fast spinning
+            nanosleep(&delay, &delay);             // prevent fast spinning
         }
 
         /* data is undefined on error, zero and continue */
@@ -608,9 +608,6 @@ static void mainloop(void) {
             close(gdata.ircserver);
             gdata.serverstatus = SERVERSTATUS_NEED_TO_CONNECT;
         } else {
-            SIGNEDSOCK int addrlen;
-            struct sockaddr_in localaddr;
-
             ioutput(CALLTYPE_NORMAL, OUT_S | OUT_L | OUT_D, COLOR_NO_COLOR,
                     "Server Connection Established, Logging In");
             gdata.serverstatus = SERVERSTATUS_CONNECTED;
@@ -619,8 +616,8 @@ static void mainloop(void) {
                 outerror(OUTERROR_TYPE_WARN, "Couldn't Set Blocking");
 
             if (!gdata.usenatip) {
-                addrlen = sizeof(localaddr);
-                bzero((char*)&localaddr, sizeof(localaddr));
+                struct sockaddr_in localaddr = {0};
+                SIGNEDSOCK int addrlen = sizeof(localaddr);
                 if (getsockname(gdata.ircserver, (struct sockaddr*)&localaddr,
                                 &addrlen) >= 0) {
                     gdata.ourip = ntohl(localaddr.sin_addr.s_addr);

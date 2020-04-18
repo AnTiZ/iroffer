@@ -51,7 +51,7 @@ void t_setuplisten(transfer* const t) {
                    sizeof(int));
     }
 
-    bzero((char*)&t->serveraddress, sizeof(struct sockaddr_in));
+    memset(&t->serveraddress, 0, sizeof(struct sockaddr_in));
 
     t->serveraddress.sin_family = AF_INET;
     t->serveraddress.sin_addr.s_addr = INADDR_ANY;

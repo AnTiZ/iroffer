@@ -33,8 +33,6 @@ void l_initvalues(upload* const l) {
 }
 
 void l_establishcon(upload* const l) {
-    struct sockaddr_in remoteaddr;
-    struct sockaddr_in localaddr;
     SIGNEDSOCK int addrlen;
     int retval;
     char* fullfile;
@@ -96,20 +94,19 @@ void l_establishcon(upload* const l) {
 
     mydelete(fullfile);
 
-    bzero((char*)&remoteaddr, sizeof(remoteaddr));
-
     l->clientsocket = socket(AF_INET, SOCK_STREAM, 0);
     if (l->clientsocket < 0) {
         l_closeconn(l, "Socket Error", errno);
         return;
     }
 
+    struct sockaddr_in remoteaddr = {0};
     remoteaddr.sin_family = AF_INET;
     remoteaddr.sin_port = htons(l->remoteport);
     remoteaddr.sin_addr.s_addr = htonl(l->remoteip);
 
     if (gdata.local_vhost) {
-        bzero((char*)&localaddr, sizeof(struct sockaddr_in));
+        struct sockaddr_in localaddr = {0};
         localaddr.sin_family = AF_INET;
         localaddr.sin_port = 0;
         localaddr.sin_addr.s_addr = htonl(gdata.local_vhost);
