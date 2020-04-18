@@ -218,94 +218,6 @@ else
  echo " no"
 fi
 
-
-echo -n "Seeing how to define a 16 bit integer... "
-echo "
-#define GEX 
-#include <stdlib.h>
-#include <stdio.h>
-int main (int argc, char **argv) {
- printf(\"%d\", (int)sizeof( C_IR_INT16 ));
- exit(0);
- }
-" > config.temp.c
-if $cctype -DC_IR_INT16="short" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "2" ]; then
- echo "short"
- echo "typedef short ir_int16;" >> src/iroffer_config.h
- echo "typedef unsigned short ir_uint16;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT16="int" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "2" ]; then
- echo "int"
- echo "typedef int ir_int16;" >> src/iroffer_config.h
- echo "typedef unsigned int ir_uint16;" >> src/iroffer_config.h
-else
- echo "Unknown. ***ERROR***: neither short or int worked."
- waserror=yes
-fi
-
-
-echo -n "Seeing how to define a 32 bit integer... "
-echo "
-#define GEX 
-#include <stdlib.h>
-#include <stdio.h>
-int main (int argc, char **argv) {
- printf(\"%d\", (int)sizeof( C_IR_INT32 ));
- exit(0);
- }
-" > config.temp.c
-if $cctype -DC_IR_INT32="int" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "4" ]; then
- echo "int"
- echo "typedef int ir_int32;" >> src/iroffer_config.h
- echo "typedef unsigned int ir_uint32;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT32="long" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "4" ]; then
- echo "long"
- echo "typedef long ir_int32;" >> src/iroffer_config.h
- echo "typedef unsigned long ir_uint32;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT32="long long" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "4" ]; then
- echo "long long"
- echo "typedef long long ir_int32;" >> src/iroffer_config.h
- echo "typedef unsigned long long ir_uint32;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT32="short" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "4" ]; then
- echo "short"
- echo "typedef short ir_int32;" >> src/iroffer_config.h
- echo "typedef unsigned short ir_uint32;" >> src/iroffer_config.h
-else
- echo "Unknown. ***ERROR***: neither short, int, long or long long worked."
- waserror=yes
-fi
-
-echo -n "Seeing how to define a 64 bit integer... "
-echo "
-#define GEX 
-#include <stdlib.h>
-#include <stdio.h>
-int main (int argc, char **argv) {
- printf(\"%d\", (int)sizeof( C_IR_INT64 ));
- exit(0);
- }
-" > config.temp.c
-if $cctype -DC_IR_INT64="long long" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "8" ]; then
- echo "long long"
- echo "typedef long long ir_int64;" >> src/iroffer_config.h
- echo "typedef unsigned long long ir_uint64;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT64="long" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "8" ]; then
- echo "long"
- echo "typedef long ir_int64;" >> src/iroffer_config.h
- echo "typedef unsigned long ir_uint64;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT64="int" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "8" ]; then
- echo "int"
- echo "typedef int ir_int64;" >> src/iroffer_config.h
- echo "typedef unsigned int ir_uint64;" >> src/iroffer_config.h
-elif $cctype -DC_IR_INT64="short" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "8" ]; then
- echo "short"
- echo "typedef short ir_int64;" >> src/iroffer_config.h
- echo "typedef unsigned short ir_uint64;" >> src/iroffer_config.h
-else
- echo "Unknown. ***ERROR***: neither short, int, long or long long worked."
- waserror=yes
-fi
-
-
 echo -n "Seeing if compiling with standard #include's works... "
 echo "
 #define GEX 
@@ -418,38 +330,6 @@ else
  echo "#define SIGNEDSOCK signed" >> src/iroffer_config.h
  waserror=yes
 fi
-
-
-echo -n "Seeing how to display long long using printf... "
-echo "
-#define GEX 
-#include \"src/iroffer_config.h\"
-#include \"src/iroffer_defines.h\"
-#include \"src/iroffer_headers.h\"
-#include \"src/iroffer_globals.h\"
-int main (int argc, char **argv)
-  {
-    long long a = 1000000000;
-    a = a*10;
-    printf(\"%\" LLPRINTFMT \"i\",a);
-    exit(0);
-  }
-" > config.temp.c
-if $cctype -DLLPRINTFMT=\"ll\" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "10000000000" ]; then
- echo "ll"
- echo "#define LLPRINTFMT \"ll\"" >> src/iroffer_config.h
-elif $cctype -DLLPRINTFMT=\"L\" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "10000000000" ]; then
- echo "L"
- echo "#define LLPRINTFMT \"L\"" >> src/iroffer_config.h
-elif $cctype -DLLPRINTFMT=\"l\" config.temp.c $libs -o config.temp $WARNS $WERROR && [ "`./config.temp`" = "10000000000" ]; then
- echo "l"
- echo "#define LLPRINTFMT \"l\"" >> src/iroffer_config.h
-else
- echo "Unknown. ***ERROR***: neither ll, l, or L worked."
- echo "#define LLPRINTFMT \"L\"" >> src/iroffer_config.h
- waserror=yes
-fi
-
 
 echo -n "Checking for snprintf()... "
 echo "

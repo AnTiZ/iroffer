@@ -14,6 +14,7 @@ and this project **does not** adhere to Semantic Versioning.
 - Code clean-ups
 - Relicense under the GPL-3.0+
 - The *dynip* script can now use either *links*, *lynx* or *wget*.
+- Use stdint.h types and inttypes.h format specifiers.
 
 ### Deprecated
 
@@ -24,6 +25,7 @@ and this project **does not** adhere to Semantic Versioning.
 
 - Use correct "printf format string" length specifier for size_t and ssize_t.
 - Merged Debian patches to fix typos and the *Configure* script.
+- Adjust printf strings to avoid potential conversion errors.
 
 ## [1.4.1] - 2018-01-12 [REMOVED]
 

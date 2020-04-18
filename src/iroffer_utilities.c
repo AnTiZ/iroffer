@@ -1387,9 +1387,8 @@ void dumpgdata(void) {
     gdata_print_int(overallmaxspeeddaydays);
 
     for (ii = 0; ii < NUMBER_TRANSFERLIMITS; ii++) {
-        gdata_print_number_array_item("%" LLPRINTFMT "u", transferlimits,
-                                      limit);
-        gdata_print_number_array_item("%" LLPRINTFMT "u", transferlimits, used);
+        gdata_print_number_array_item("%" PRIu64, transferlimits, limit);
+        gdata_print_number_array_item("%" PRIu64, transferlimits, used);
         gdata_print_number_array_item_cast("%ld", transferlimits, ends,
                                            long int);
     }
@@ -1417,7 +1416,7 @@ void dumpgdata(void) {
     gdata_print_int(autoignore_threshold);
     /* uploadhost */
     gdata_print_string(uploaddir);
-    gdata_print_number_cast("%" LLPRINTFMT "d", uploadmaxsize, long long);
+    gdata_print_number_cast("%jd", uploadmaxsize, intmax_t);
     gdata_print_string(config_nick);
     gdata_print_string(user_nick);
     gdata_print_string(caps_nick);
@@ -1543,7 +1542,7 @@ void dumpgdata(void) {
 
     gdata_print_float(record);
     gdata_print_float(sentrecord);
-    gdata_print_number("%" LLPRINTFMT "u", totalsent);
+    gdata_print_number("%llu", totalsent);
     gdata_print_long(totaluptime);
     gdata_print_int(debug);
     gdata_print_int(exiting);
@@ -1570,7 +1569,7 @@ void dumpgdata(void) {
     gdata_print_int(delayedshutdown);
     gdata_print_int(cursendptr);
     gdata_print_int(next_tr_id);
-    gdata_print_number_cast("%" LLPRINTFMT "d", max_file_size, long long);
+    gdata_print_number_cast("%jd", max_file_size, intmax_t);
 
     gdata_print_uint(max_fds_from_rlimit);
 
@@ -1594,13 +1593,12 @@ void dumpgdata(void) {
     gdata_iter_print_string(note);
     ioutput(gdata_common,
             "  : ptr=0x%.8lX gets=%d minspeed=%.1f maxspeed=%.1f "
-            "st_size=%" LLPRINTFMT "d",
+            "st_size=%jd",
             (unsigned long)iter, iter->gets, iter->minspeed, iter->maxspeed,
-            (long long)iter->st_size);
+            (intmax_t)iter->st_size);
     /* st_dev st_ino */
-    ioutput(gdata_common, "  : fd=%d fd_count=%d fd_loc=%" LLPRINTFMT "d",
-            iter->file_fd, iter->file_fd_count,
-            (long long)iter->file_fd_location);
+    ioutput(gdata_common, "  : fd=%d fd_count=%d fd_loc=%jd", iter->file_fd,
+            iter->file_fd_count, (intmax_t)iter->file_fd_location);
     ioutput(gdata_common, "  : has_md5=%d md5sum=" MD5_PRINT_FMT,
             iter->has_md5sum, MD5_PRINT_DATA(iter->md5sum));
 #ifdef HAVE_MMAP
@@ -1611,11 +1609,9 @@ void dumpgdata(void) {
              iter2 = irlist_get_next(iter2)) {
             ioutput(gdata_common,
                     "  : ptr=%p ref_count=%d mmap_ptr=%p "
-                    "mmap_offset=0x%.8" LLPRINTFMT
-                    "X mmap_size=0x%.8" LLPRINTFMT "X",
+                    "mmap_offset=0x%.8jX mmap_size=0x%.8zX",
                     iter2, iter2->ref_count, iter2->mmap_ptr,
-                    (unsigned long long)iter2->mmap_offset,
-                    (unsigned long long)iter2->mmap_size);
+                    (uintmax_t)iter2->mmap_offset, iter2->mmap_size);
         }
     }
 #endif
@@ -1632,13 +1628,12 @@ void dumpgdata(void) {
     ioutput(gdata_common, "  : listen=%d client=%d id=%d", iter->listensocket,
             iter->clientsocket, iter->id);
     ioutput(gdata_common,
-            "  : sent=%" LLPRINTFMT "d got=%" LLPRINTFMT
-            "d lastack=%" LLPRINTFMT "d curack=%" LLPRINTFMT
-            "d resume=%" LLPRINTFMT "d speedamt=%" LLPRINTFMT "d tx_bucket=%li",
-            (long long)iter->bytessent, (long long)iter->bytesgot,
-            (long long)iter->lastack, (long long)iter->curack,
-            (long long)iter->startresume, (long long)iter->lastspeedamt,
-            (long)iter->tx_bucket);
+            "  : sent=%jd got=%jd lastack=%jd curack=%jd resume=%jd "
+            "speedamt=%jd tx_bucket=%ld",
+            (intmax_t)iter->bytessent, (intmax_t)iter->bytesgot,
+            (intmax_t)iter->lastack, (intmax_t)iter->curack,
+            (intmax_t)iter->startresume, (intmax_t)iter->lastspeedamt,
+            iter->tx_bucket);
     ioutput(gdata_common,
             "  : lastcontact=%ld connecttime=%ld lastspeed=%.1f pack=0x%.8lX",
             (long)iter->lastcontact, (long)iter->connecttime, iter->lastspeed,
@@ -1662,11 +1657,9 @@ void dumpgdata(void) {
     gdata_irlist_iter_start(uploads, upload);
     ioutput(gdata_common, "  : client=%d file=%d ul_status=%d",
             iter->clientsocket, iter->filedescriptor, iter->ul_status);
-    ioutput(gdata_common,
-            "  : got=%" LLPRINTFMT "d totalsize=%" LLPRINTFMT
-            "d resume=%" LLPRINTFMT "d speedamt=%" LLPRINTFMT "d",
-            (long long)iter->bytesgot, (long long)iter->totalsize,
-            (long long)iter->resumesize, (long long)iter->lastspeedamt);
+    ioutput(gdata_common, "  : got=%jd totalsize=%jd resume=%jd speedamt=%jd",
+            (intmax_t)iter->bytesgot, (intmax_t)iter->totalsize,
+            (intmax_t)iter->resumesize, (intmax_t)iter->lastspeedamt);
     ioutput(gdata_common, "  : lastcontact=%ld connecttime=%ld lastspeed=%.1f",
             (long)iter->lastcontact, (long)iter->connecttime, iter->lastspeed);
     ioutput(gdata_common,
@@ -2438,7 +2431,7 @@ int get_next_tr_id(void) {
     }
 }
 
-void ir_listen_port_connected(ir_uint16 port) {
+void ir_listen_port_connected(uint16_t port) {
     ir_listen_port_item_t* lp;
 
     lp = irlist_get_head(&gdata.listen_ports);
@@ -2456,7 +2449,7 @@ void ir_listen_port_connected(ir_uint16 port) {
     return;
 }
 
-static int ir_listen_port_is_in_list(ir_uint16 port) {
+static int ir_listen_port_is_in_list(uint16_t port) {
     int retval = 0;
     ir_listen_port_item_t* lp;
 
@@ -2482,7 +2475,7 @@ int ir_bind_listen_socket(int fd, struct sockaddr_in* sa) {
     ir_listen_port_item_t* lp;
     int retry;
     int max;
-    ir_uint16 port;
+    uint16_t port;
     SIGNEDSOCK int addrlen;
 
     max = (MAXTRANS + MAXUPLDS + MAXCHATS + irlist_size(&gdata.listen_ports));

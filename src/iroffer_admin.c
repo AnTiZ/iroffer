@@ -496,7 +496,7 @@ static void u_xdl(const userinput* const u) {
     float toffered;
     int len;
     xdcc* xd;
-    ir_uint64 xdccsent;
+    uint64_t xdccsent;
 
     updatecontext();
 
@@ -557,7 +557,7 @@ static void u_xdl(const userinput* const u) {
 
 
         for (i = 0, xdccsent = 0; i < XDCC_SENT_SIZE; i++) {
-            xdccsent += (ir_uint64)gdata.xdccsent[i];
+            xdccsent += (uint64_t)gdata.xdccsent[i];
         }
 
         snprintf(tempstr, maxtextlength - 1,
@@ -862,10 +862,10 @@ static void u_dcld(const userinput* const u) {
 
             u_respond(
                 u,
-                "  ^- %5.1fK/s    %6" LLPRINTFMT "iK/%6" LLPRINTFMT
-                "iK  %2i%c%02i%c/%2i%c%02i%c  %5s/%5s  %7s",
-                tr->lastspeed, (long long)((tr->bytessent) / 1024),
-                (long long)((tr->xpack->st_size) / 1024),
+                "  ^- %5.1fK/s    %6jdK/%6jdK  %2i%c%02i%c/%2i%c%02i%c  "
+                "%5s/%5s  %7s",
+                tr->lastspeed, (intmax_t)((tr->bytessent) / 1024),
+                (intmax_t)((tr->xpack->st_size) / 1024),
                 started < 3600 ? started / 60 : started / 60 / 60,
                 started < 3600 ? 'm' : 'h',
                 started < 3600 ? started % 60 : (started / 60) % 60,
@@ -937,10 +937,9 @@ static void u_dcld(const userinput* const u) {
             started = min2(359999, gdata.curtime - ul->connecttime);
 
             u_respond(u,
-                      "  ^- %5.1fK/s    %6" LLPRINTFMT "iK/%6" LLPRINTFMT
-                      "iK  %2i%c%02i%c/%2i%c%02i%c",
-                      ul->lastspeed, (long long)((ul->bytesgot) / 1024),
-                      (long long)((ul->totalsize) / 1024),
+                      "  ^- %5.1fK/s    %6jdK/%6jdK  %2i%c%02i%c/%2i%c%02i%c",
+                      ul->lastspeed, (intmax_t)((ul->bytesgot) / 1024),
+                      (intmax_t)((ul->totalsize) / 1024),
                       started < 3600 ? started / 60 : started / 60 / 60,
                       started < 3600 ? 'm' : 'h',
                       started < 3600 ? started % 60 : (started / 60) % 60,
@@ -1176,15 +1175,15 @@ static void u_info(const userinput* const u) {
     }
 
     sizestrstr = sizestr(1, xd->st_size);
-    u_respond(u, " Filesize       %" LLPRINTFMT "i [%sB]",
-              (long long)xd->st_size, sizestrstr);
+    u_respond(u, " Filesize       %jd [%sB]", (intmax_t)xd->st_size,
+              sizestrstr);
     mydelete(sizestrstr);
 
     getdatestr(tempstr, xd->mtime, maxtextlengthshort);
     u_respond(u, " Last Modified  %s", tempstr);
 
-    u_respond(u, " Device/Inode   %" LLPRINTFMT "u/%" LLPRINTFMT "u",
-              (unsigned long long)xd->st_dev, (unsigned long long)xd->st_ino);
+    u_respond(u, " Device/Inode   %ju/%ju", (uintmax_t)xd->st_dev,
+              (uintmax_t)xd->st_ino);
 
     u_respond(u, " Gets           %d", xd->gets);
     if (xd->minspeed) {
@@ -2531,17 +2530,15 @@ static void u_botinfo(const userinput* const u) {
 
         if (gdata.transferlimits[ii].limit) {
             u_respond(u,
-                      "transferlimit: %7s (ends %s): used %" LLPRINTFMT
-                      "uMB, limit %" LLPRINTFMT "uMB",
+                      "transferlimit: %7s (ends %s): used %juMB, limit %juMB",
                       transferlimit_type_to_string(ii), tempstr2,
                       gdata.transferlimits[ii].used / 1024 / 1024,
                       gdata.transferlimits[ii].limit / 1024 / 1024);
         } else {
-            u_respond(u,
-                      "transferlimit: %7s (ends %s): used %" LLPRINTFMT
-                      "uMB, limit unlimited",
-                      transferlimit_type_to_string(ii), tempstr2,
-                      gdata.transferlimits[ii].used / 1024 / 1024);
+            u_respond(
+                u, "transferlimit: %7s (ends %s): used %juMB, limit unlimited",
+                transferlimit_type_to_string(ii), tempstr2,
+                gdata.transferlimits[ii].used / 1024 / 1024);
         }
     }
 
@@ -2573,8 +2570,8 @@ static void u_botinfo(const userinput* const u) {
               gdata.configfile[9] ? gdata.configfile[9] : "");
 
     if (irlist_size(&gdata.uploadhost)) {
-        snprintf(tempstr, maxtextlength - 1, "%" LLPRINTFMT "iMB",
-                 (long long)(gdata.uploadmaxsize / 1024 / 1024));
+        snprintf(tempstr, maxtextlength - 1, "%jdMB",
+                 (intmax_t)(gdata.uploadmaxsize / 1024 / 1024));
         u_respond(u, "upload allowed, dir: %s, max size: %s", gdata.uploaddir,
                   gdata.uploadmaxsize ? tempstr : "none");
     }
@@ -3008,12 +3005,10 @@ static void u_memstat(const userinput* const u) {
 
             for (mm = irlist_get_head(&xd->mmaps); mm;
                  mm = irlist_get_next(mm)) {
-                u_respond(u,
-                          " %4i | 0x%8.8" LLPRINTFMT "X .. 0x%8.8" LLPRINTFMT
-                          "X | %p | %10d",
-                          pack_count, (unsigned long long)mm->mmap_offset,
-                          (unsigned long long)mm->mmap_offset +
-                              (unsigned long long)mm->mmap_size - 1,
+                u_respond(u, " %4d | 0x%8.8jX .. 0x%8.8jX | %p | %10d",
+                          pack_count, (uintmax_t)mm->mmap_offset,
+                          (uintmax_t)mm->mmap_offset +
+                              (uintmax_t)mm->mmap_size - 1,
                           mm->mmap_ptr, mm->ref_count);
             }
             pack_count++;
@@ -3188,11 +3183,10 @@ static void u_trinfo(const userinput* const u) {
     u_respond(u, "File: %s", getfilename(tr->xpack->file));
 
     u_respond(u,
-              "Start %" LLPRINTFMT "iK, Current %" LLPRINTFMT
-              "iK, End %" LLPRINTFMT "iK (%2.0f%% File, %2.0f%% Xfer)",
-              (long long)((tr->startresume) / 1024),
-              (long long)((tr->bytessent) / 1024),
-              (long long)((tr->xpack->st_size) / 1024),
+              "Start %jdK, Current %jdK, End %jdK (%2.0f%% File, %2.0f%% Xfer)",
+              (intmax_t)((tr->startresume) / 1024),
+              (intmax_t)((tr->bytessent) / 1024),
+              (intmax_t)((tr->xpack->st_size) / 1024),
               ((float)tr->bytessent) * 100.0 / ((float)tr->xpack->st_size),
               ((float)(tr->bytessent - tr->startresume)) * 100.0 /
                   ((float)max2(1, (tr->xpack->st_size - tr->startresume))));
@@ -3203,12 +3197,11 @@ static void u_trinfo(const userinput* const u) {
     snprintf(tempstr2, maxtextlengthshort - 1, "%1.1fK/s", tr->xpack->minspeed);
     snprintf(tempstr3, maxtextlengthshort - 1, "%1.1fK/s", tr->xpack->maxspeed);
 
-    u_respond(u,
-              "Min %s, Current %1.1fK/s, Max %s, In Transit %" LLPRINTFMT "iK",
+    u_respond(u, "Min %s, Current %1.1fK/s, Max %s, In Transit %jdK",
               (tr->nomin || (tr->xpack->minspeed == 0.0)) ? "no" : tempstr2,
               tr->lastspeed,
               (tr->nomax || (tr->xpack->maxspeed == 0.0)) ? "no" : tempstr3,
-              (long long)(tr->bytessent - tr->lastack) / 1024);
+              (intmax_t)(tr->bytessent - tr->lastack) / 1024);
 
     mydelete(tempstr2);
     mydelete(tempstr3);
@@ -3245,14 +3238,12 @@ static void u_trinfo(const userinput* const u) {
 
 #ifdef HAVE_MMAP
     if (tr->mmap_info) {
-        u_respond(u,
-                  "MMAP: [%p] 0x%.8" LLPRINTFMT "X .. 0x%.8" LLPRINTFMT
-                  "X .. 0x%.8" LLPRINTFMT "X",
+        u_respond(u, "MMAP: [%p] 0x%.8jX .. 0x%.8jX .. 0x%.8jX",
                   tr->mmap_info->mmap_ptr,
-                  (unsigned long long)tr->mmap_info->mmap_offset,
-                  (unsigned long long)tr->bytessent,
-                  (unsigned long long)tr->mmap_info->mmap_offset +
-                      (unsigned long long)tr->mmap_info->mmap_size - 1);
+                  (uintmax_t)tr->mmap_info->mmap_offset,
+                  (uintmax_t)tr->bytessent,
+                  (uintmax_t)tr->mmap_info->mmap_offset +
+                      (uintmax_t)tr->mmap_info->mmap_size - 1);
     }
 #endif
 }
