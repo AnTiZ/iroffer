@@ -13,8 +13,9 @@ and this project **does not** adhere to Semantic Versioning.
 - Restructured the projects file layout
 - Code clean-ups
 - Relicense under the GPL-3.0+
-- The *dynip* script can now use either *links*, *lynx* or *wget*.
 - Use stdint.h types and inttypes.h format specifiers.
+- Refactor code to increase and modernize POSIX compatibility.
+- The *dynip* script can now use either *links*, *lynx* or *wget*.
 
 ### Deprecated
 
