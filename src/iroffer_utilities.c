@@ -1512,7 +1512,7 @@ void dumpgdata(void) {
     gdata_irlist_iter_start(ignorelist, channel_t);
     ioutput(gdata_common, "  : name=%s key=%s", iter->name,
             gdata_string(iter->key));
-    ioutput(gdata_common, "  : flags=%d plsittime=%d plistoffset=%d",
+    ioutput(gdata_common, "  : flags=%d plisttime=%d plistoffset=%d",
             iter->flags, iter->plisttime, iter->plistoffset);
     /* members */
     gdata_irlist_iter_end;

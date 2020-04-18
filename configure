@@ -931,8 +931,8 @@ echo Done
 echo
 
 if [ -n "$waserror" ]; then
-echo "!!!!!WARNING!!!!!  one or more errors occured, guesses for those values that failed were included."
-echo "You should re-run Configure with the 'errors' arguemnt to see the details."
+echo "!!!!!WARNING!!!!!  one or more errors occurred, guesses for those values that failed were included."
+echo "You should re-run Configure with the 'errors' argument to see the details."
 echo
 fi
 
