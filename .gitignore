@@ -60,6 +60,7 @@ convertxdccfile
 # Files created by Configure
 iroffer_config.h
 Makefile
+compile_commands.json
 
 # Logs and caches
 mybot.log
