@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# SPDX-FileCopyrightText: 1998-2005 David Johnson
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 #### WHAT THIS DOES ####
 # 
 # If you have a dynamic ip address and require setting 'usenatip'

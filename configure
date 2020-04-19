@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# SPDX-FileCopyrightText: 1998-2005 David Johnson
+# SPDX-FileCopyrightText: 2016 Joao Eriberto Mota Filho <eriberto@debian.org>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 VERSION=1.5.0
 RELEASE=1
 
