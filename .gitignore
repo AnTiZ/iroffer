@@ -66,6 +66,7 @@ compile_commands.json
 mybot.log
 mybot.state
 mybot.state~
+mybot.txt
 local.config
 
 # Build directories
