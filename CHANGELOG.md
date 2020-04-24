@@ -2,10 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project **does not** adhere to Semantic Versioning.
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/), but this project **does not** adhere to Semantic Versioning.
 
 ## [Unreleased]
+
+[Unreleased]: https://github.com/antiz/iroffer/compare/6edad52d28e6295ec136674348ee5f007f08e206...HEAD
+
+**v1.5.0 includes all code changes from v1.4.1. Those changes won't be listed here again.** *Check below for the v1.4.1 changelog.*
+
+### Changed
+
+- **Breaking: The configure script is now lower case: Configure -> configure**
+- Increased and modernized POSIX compatibility.
+- New MD5 implementation
+
+### Fixed
+
+- Adjust printf strings to avoid potential conversion errors.
+- Typos in debug output
+
+## ~~[1.4.1] - 2018-01-12~~ [REMOVED]
+
+[1.4.1]: https://github.com/antiz/iroffer/compare/v1.4.b03-orig...6edad52d28e6295ec136674348ee5f007f08e206
+
+*This release was removed because of issues with the version string format of PMG-provided beta releases vs this repositories' release builds. See [antiz/iroffer issue #1]*
+
+[antiz/iroffer issue #1]: https://github.com/antiz/iroffer/issues/1
 
 ### Changed
 
@@ -13,9 +35,6 @@ and this project **does not** adhere to Semantic Versioning.
 - Restructured the projects file layout
 - Code clean-ups
 - Relicense under the GPL-3.0+
-- Use stdint.h types and inttypes.h format specifiers.
-- Refactor code to increase and modernize POSIX compatibility.
-- New MD5 implementation
 - The *dynip* script can now use either *links*, *lynx* or *wget*.
 
 ### Deprecated
@@ -27,9 +46,6 @@ and this project **does not** adhere to Semantic Versioning.
 
 - Use correct "printf format string" length specifier for size_t and ssize_t.
 - Merged Debian patches to fix typos and the *Configure* script.
-- Adjust printf strings to avoid potential conversion errors.
-
-## [1.4.1] - 2018-01-12 [REMOVED]
 
 ## 1.4.b03 - 2005-12-12
 
@@ -52,8 +68,6 @@ and this project **does not** adhere to Semantic Versioning.
 - Fix invalid CTCP ping response.
 - Fix username when it cannot be determined automatically.
 - Fix infinite loop when debug output causes memory allocation.
-
-[Unreleased]: https://github.com/antiz/iroffer/compare/v1.4.b03-orig...HEAD
 
 ---
 
