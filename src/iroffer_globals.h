@@ -3,8 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#if !defined _IROFFER_GLOBALS
-#define _IROFFER_GLOBALS
+#ifndef IROFFER_GLOBALS_H
+#define IROFFER_GLOBALS_H
 
 #if !defined GEX
 #define GEX extern
@@ -241,4 +241,4 @@ typedef struct {
 GEX gdata_t gdata;
 
 
-#endif /* _IROFFER_GLOBALS */
+#endif // IROFFER_GLOBALS_H

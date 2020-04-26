@@ -3,8 +3,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#if !defined _IROFFER_HEADERS
-#define _IROFFER_HEADERS
+#ifndef IROFFER_HEADERS_H
+#define IROFFER_HEADERS_H
 
 /*------------ includes ------------- */
 
@@ -690,4 +690,4 @@ void u_fillwith_clean(userinput* const u);
 
 void u_parseit(userinput* const u);
 
-#endif /* !_IROFFER_HEADERS */
+#endif // IROFFER_HEADERS_H

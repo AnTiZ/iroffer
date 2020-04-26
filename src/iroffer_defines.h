@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#if !defined _IROFFER_DEFINES
-#define _IROFFER_DEFINES
+#ifndef IROFFER_DEFINES_H
+#define IROFFER_DEFINES_H
 
 
 /* options, these should be on */
@@ -235,4 +235,4 @@
 #error "** ERROR: This OS Is Not Supported Or You Didn't Run Configure **"
 #endif
 
-#endif /* _IROFFER_DEFINES */
+#endif // IROFFER_DEFINES_H
