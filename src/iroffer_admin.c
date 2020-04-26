@@ -2947,7 +2947,7 @@ static void u_memstat(const userinput* const u) {
         int meminfo_depth;
 
         /*
-         * we need to copy the entire table so we dont walk it
+         * we need to copy the entire table so we don't walk it
          * while it while it can be modified
          */
     again:

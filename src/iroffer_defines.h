@@ -11,7 +11,7 @@
 #define PING_SRVR 1
 /*       XDCC SAVE on Shutdown */
 #define SAVEQUIT 1
-/*       dont allow running as root */
+/*       don't allow running as root */
 #define BLOCKROOT 1
 
 
@@ -55,7 +55,7 @@
 #define MAXCONTEXTS 300
 /*       Server Connection Timeout In Seconds */
 #define CTIMEOUT 5
-/*       Server Connection Timeout Backoff In Seconds */
+/*       Server Connection Timeout Back-off In Seconds */
 #define CBKTIMEOUT 2
 /*       How Long to Wait Until We Giveup On A Non-responding Server */
 #define SRVRTOUT 240
@@ -72,12 +72,12 @@
 #define PCL_GEN_PASSWORD 2
 #define PCL_SHOW_VERSION 3
 
-/*       threshhold for ignore, number of requests in bucket */
+/*       threshold for ignore, number of requests in bucket */
 #define IGN_ON 8
 
-/*       weight for speed calcualtion in dcl initial */
+/*       weight for speed calculation in dcl initial */
 #define DCL_SPDW_I 0.5
-/*       weight for speed calcualtion in dcl ongoing */
+/*       weight for speed calculation in dcl ongoing */
 #define DCL_SPDW_O 0.9
 /*       time until minspeed checking becomes active */
 #define MIN_TL 60
@@ -109,7 +109,7 @@
 #define MAX_PREFIX 16
 #define MAX_CHANMODES 16
 
-/* free'ing just leads to trouble if we dont check first and then make NULL */
+/* free'ing just leads to trouble if we don't check first and then make NULL */
 #define mydelete(x)                                                            \
     {                                                                          \
         mydelete2(x);                                                          \
@@ -138,7 +138,7 @@
 #define BOUTPUT_NO_LIMIT 2
 #define BOUTPUT_MD5SUM 4
 
-/* type definistions: Screen, Log, DCC CHAT */
+/* type definitions: Screen, Log, DCC CHAT */
 #define OUT_S 1
 #define OUT_L 2
 #define OUT_D 4
@@ -163,7 +163,7 @@
 #define CREAT_PERMISSIONS                                                      \
     (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)
 
-/* how long to tollerate a missing user before disconnecting */
+/* how long to tolerate a missing user before disconnecting */
 #define RESTRICTSEND_TIMEOUT 300
 
 /* some os's (cygwin, cough, cough, ... ) require extra flags to open() */
