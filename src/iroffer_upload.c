@@ -20,7 +20,6 @@ void l_initvalues(upload* const l) {
 }
 
 void l_establishcon(upload* const l) {
-    SIGNEDSOCK int addrlen;
     int retval;
     char* fullfile;
     struct stat s;
@@ -119,7 +118,7 @@ void l_establishcon(upload* const l) {
     }
     alarm(0);
 
-    addrlen = sizeof(remoteaddr);
+    socklen_t addrlen = sizeof(remoteaddr);
     if (getsockname(l->clientsocket, (struct sockaddr*)&remoteaddr, &addrlen) <
         0) {
         l_closeconn(l, "Couldn't getsockname", errno);

@@ -2463,7 +2463,6 @@ int ir_bind_listen_socket(int fd, struct sockaddr_in* sa) {
     int retry;
     int max;
     uint16_t port;
-    SIGNEDSOCK int addrlen;
 
     max = (MAXTRANS + MAXUPLDS + MAXCHATS + irlist_size(&gdata.listen_ports));
 
@@ -2495,7 +2494,7 @@ int ir_bind_listen_socket(int fd, struct sockaddr_in* sa) {
         return -1;
     }
 
-    addrlen = sizeof(struct sockaddr_in);
+    socklen_t addrlen = sizeof(struct sockaddr_in);
 
     if ((getsockname(fd, (struct sockaddr*)sa, &addrlen)) < 0) {
         outerror(OUTERROR_TYPE_WARN_LOUD, "Couldn't get Port Number, Aborting");

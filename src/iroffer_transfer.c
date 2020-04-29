@@ -62,10 +62,9 @@ void t_setuplisten(transfer* const t) {
 
 void t_establishcon(transfer* const t) {
     struct sockaddr_in temp1;
-    SIGNEDSOCK int addrlen;
 
 #if !defined(_OS_SunOS)
-    SIGNEDSOCK int tempi;
+    socklen_t tempi;
 #endif
 #if !defined(_OS_SunOS) || defined(_OS_BSD_ANY) || !defined(CANT_SET_TOS)
     int tempc;
@@ -73,7 +72,7 @@ void t_establishcon(transfer* const t) {
 
     updatecontext();
 
-    addrlen = sizeof(struct sockaddr_in);
+    socklen_t addrlen = sizeof(struct sockaddr_in);
 
     if (!gdata.attop)
         gototop();

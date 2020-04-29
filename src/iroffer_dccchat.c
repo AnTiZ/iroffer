@@ -100,7 +100,6 @@ int setupdccchatout(const char* nick) {
 }
 
 void setupdccchataccept(dccchat_t* chat) {
-    SIGNEDSOCK int addrlen;
     struct sockaddr_in remoteaddr;
     char* tempstr;
     int listen_fd;
@@ -108,7 +107,7 @@ void setupdccchataccept(dccchat_t* chat) {
     updatecontext();
 
     listen_fd = chat->fd;
-    addrlen = sizeof(struct sockaddr_in);
+    socklen_t addrlen = sizeof(struct sockaddr_in);
     if ((chat->fd =
              accept(listen_fd, (struct sockaddr*)&remoteaddr, &addrlen)) < 0) {
         outerror(OUTERROR_TYPE_WARN, "Accept Error, Aborting: %s",
@@ -152,7 +151,6 @@ void setupdccchataccept(dccchat_t* chat) {
 
 int setupdccchat(const char* nick, const char* line) {
     char *ip, *port;
-    SIGNEDSOCK int addrlen;
     int retval;
     dccchat_t* chat;
 
@@ -246,7 +244,7 @@ int setupdccchat(const char* nick, const char* line) {
     }
     alarm(0);
 
-    addrlen = sizeof(localaddr);
+    socklen_t addrlen = sizeof(localaddr);
     if (getsockname(chat->fd, (struct sockaddr*)&localaddr, &addrlen) < 0) {
         outerror(OUTERROR_TYPE_WARN_LOUD, "Couldn't get sock name: %s",
                  strerror(errno));
