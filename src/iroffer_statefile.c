@@ -283,7 +283,7 @@ void write_statefile(void) {
     {
         statefile_item_generic_time_t item_last_logrotate;
         item_last_logrotate.hdr.tag = STATEFILE_TAG_LAST_LOGROTATE;
-        item_last_logrotate.hdr.length = sizeof(statefile_item_generic_int_t);
+        item_last_logrotate.hdr.length = sizeof(statefile_item_generic_time_t);
         item_last_logrotate.g_time = htonl(gdata.last_logrotate);
         write_statefile_item(&bout, &item_last_logrotate);
     }

@@ -18,7 +18,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/), 
 
 ### Fixed
 
-- Adjust printf strings to avoid potential conversion errors.
+- Failure to read 'last log rotate' timestamp from statefile on systems where time_t is 64 bit
+- Incorrect printf format specifiers
 - Typos in debug output
 
 ## ~~[1.4.1] - 2018-01-12~~ [REMOVED]
